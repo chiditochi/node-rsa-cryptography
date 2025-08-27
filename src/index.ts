@@ -6,8 +6,7 @@ import {
   encrypt,
   decrypt,
   arcaEncrypt
-} from "./lib/forge";
-//console.log(colors.green("\n\nNode RSA Cryptography\n"));
+} from "./lib/crypto.js";
 
 async function encryptData(data: string) {
   //encrypted data
