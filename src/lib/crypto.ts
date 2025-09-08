@@ -74,7 +74,14 @@ export const encrypt = async (data: string) => {
   try {
     const publicKey = await readPemFile(publicFileName);
     const buffer = Buffer.from(data);
-    const encrypted = crypto.publicEncrypt(publicKey, buffer);
+    const encrypted = crypto.publicEncrypt(
+      {
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        oaepHash: 'sha1'
+      },
+      buffer
+    );
     return encrypted.toString('base64');
   } catch (error) {
     console.error(colors.bold.red(String(error)));
@@ -86,7 +93,13 @@ export const arcaEncrypt = async (data: string) => {
   try {
     const publicKey = await readPemFile(arcaPublicFileName);
     const buffer = Buffer.from(data);
-    const encrypted = crypto.publicEncrypt(publicKey, buffer);
+    const encrypted = crypto.publicEncrypt(
+      {
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING
+      },
+      buffer
+    );
     return encrypted.toString('base64');
   } catch (error) {
     console.error(colors.bold.red(error as string));
@@ -98,10 +111,55 @@ export const decrypt = async (encryptedData: string) => {
   try {
     const privateKey = await readPemFile(privateFileName);
     const buffer = Buffer.from(encryptedData, 'base64');
-    const decrypted = crypto.privateDecrypt(privateKey, buffer);
-    return decrypted.toString();
+    
+    // Create a private key object
+    const keyObject = crypto.createPrivateKey({
+      key: privateKey,
+      format: 'pem'
+    });
+
+    try {
+      // Try decryption with NO_PADDING
+      const decrypted = crypto.privateDecrypt({
+        key: keyObject,
+        padding: crypto.constants.RSA_NO_PADDING
+      }, buffer);
+      
+      // Manual PKCS1 v1.5 unpadding
+      const data = decrypted;
+      let i = 0;
+      
+      // Skip initial zero byte
+      if (data[i] === 0) i++;
+      
+      // Skip block type
+      if (data[i] === 2) i++;
+      
+      // Skip padding bytes
+      while (i < data.length && data[i] !== 0) i++;
+      
+      // Skip separator byte
+      if (i < data.length) i++;
+      
+      // Extract message
+      if (i < data.length) {
+        const message = data.slice(i);
+        try {
+          // Try UTF-8 first
+          return message.toString('utf8');
+        } catch (e) {
+          // Fallback to ascii if UTF-8 fails
+          return message.toString('ascii');
+        }
+      }
+      
+      throw new Error("Invalid padding in decrypted data");
+    } catch (innerError) {
+      console.error(colors.yellow("Decryption attempt failed: " + String(innerError)));
+      throw innerError;
+    }
   } catch (error) {
-    console.error(colors.bold.red(error as string));
+    console.error(colors.bold.red("Final decryption error: " + String(error)));
     return null;
   }
 };
