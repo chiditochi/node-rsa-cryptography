@@ -6,7 +6,9 @@ import {
   encrypt,
   decrypt,
   arcaEncrypt
-} from "./lib/crypto.js";
+} 
+from "./lib/crypto.js";
+//from "./lib/forge.js";
 
 async function encryptData(data: string) {
   //encrypted data

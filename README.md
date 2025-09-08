@@ -23,7 +23,7 @@ npm run start publicKey
 npm run start encr 'God is everything and is never late, be still'
 
 ### decrypt data: 
-npm run start decr 'voyDVMiCbIT71zh7iYdV+Dh59i2TCIZcnZ6YBu00HbozREWoBfRWIKhD1Rf10+NhNgLVk4hNzcSqmX4kg5S7gYUcebRNKlJjy5aynBRBWlVqOOGXxb3mCm9Yj1L3+3omhVZm2f1RGKFJ1++Vyd01AB7eQwzOnl/BqDrK83bnguxosBJBRSsL+jBgr/50Bm5M0fn9wCbuzbqqMCYQqMBoWR3lVoo5bhwmsBfj+h/W5tXgHGm3TTsuKhw0LY/LTw7gDDkqEWPEmLVNRHNbYAjzfSC+LKNCdtJjei2e+NqOoGIkp50AU5UQ2FXpjA/Z47g4EqM55Tp6gmFFj5RdK3PIlg=='
+npm run start decr 'TR7bXKBXCJjWWcCXj54j/IH+D2lOxjV/2KD8vcRLqA6pIlfbOIPM/v4IZ7c6nfR2npwZ4/U7V4+gEgCPLlhfQ83l3mdy24QEgq9usRiN825NQUNuUix9ySuxuqdqtncGkRsEAgL33KHVXqQuH8GcBYIKHLqlLa+CRqxOT88ix1ZUoydDT/Tlumtsl2SDukp9UYR3nEVhfhYzSDD+jfbhe5LI48CfSLCP/KtFatZrIGMCRTA4tYExknbX9Avexw5XOLv9QJpJjhdJyllUGPpOd0A2HdWcZF3bxbE1noOuDwNspXSnvwoc4VT9SH5w5raEKr6xj8cGCeUcOxgiYMcVyw=='
 
 ### encrypt data with remote public key data: 
 npm run start arca-encr 'Thank you for banking with us ...'
