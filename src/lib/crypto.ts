@@ -6,15 +6,15 @@ import * as crypto from "node:crypto";
 import * as process from "process";
 
 //key file names
-const publicFileName = "keys/node-forge/public.pem";
-const privateFileName = "keys/node-forge/private.pem";
+const publicFileName = "keys/node-crypto/public.pem";
+const privateFileName = "keys/node-crypto/private.pem";
 const arcaPublicFileName = "keys/arca-public-460.pem";
 
 const arcaPublicKey = `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhidYZ2wlHLwQw7N+rYfQ2PqWZGWRP18I2ohGIZmP9QHswn0IQleqiV0jeFAQ7aVcK2V5tqBJC6dNgtKZRN5G+Vcyg/kK4p46/Avf9qBnzrnChv8OboWkrl6c+opJfd6cS8oxtDN4Gvst4ElFnlHVGdvdBxrJ4QONU0lJ3DgYDASGQeMeLmRAuZ0g9g7Ez3X1+B7NPxs5C2+bh5awhve3e83/vUtaYnWpdA2nZ8pGxP/CIoNJWCLMuytAprDMdeKCFooNLyxFO+Mck975QwFcxVyhT53199ZrTNG/fEX7wPWV0YoAYeeTWamuiwUM4Lh52G52DMvtuLTlpI/tAyI3MQIDAQAB
 -----END PUBLIC KEY-----`;
 
-const directories = ['keys', 'keys/node-forge'];
+const directories = ['keys', 'keys/node-crypto'];
 
 const generateKeyPair = async () => {
   return new Promise<{ publicKey: string, privateKey: string }>((resolve, reject) => {
@@ -64,9 +64,9 @@ export const generatePemFiles = async () => {
     await writePemFile(privateKey, privateFileName);
     await writePemFile(arcaPublicKey, arcaPublicFileName);
     
-    console.log(colors.bold.yellow("done writing pem files to /keys/node-forge/"));
+    console.log(colors.bold.yellow("done writing pem files to /keys/node-crypto/"));
   } catch (error) {
-    console.error(colors.bold.red("error writing forge files " + error));
+    console.error(colors.bold.red("error writing crypto files " + error));
   }
 };
 
